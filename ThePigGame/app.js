@@ -67,27 +67,30 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	
 });
 
-document.querySelector('.btn-new').addEventListener('click', function() {
+document.querySelector('.btn-new').addEventListener('click', init);
+
+function init() {
 	//reset all scores.
 	scores[0] = 0;
 	scores[1] = 0;
 	roundScore = 0;
-	document.querySelector('.player-0-panel').classList.add('active');
-	document.querySelector('.player-1-panel').classList.remove('active');
-	document.querySelector('.player-0-panel').classList.remove('winner');
-	document.querySelector('.player-1-panel').classList.remove('winner');
-	document.querySelector('.btn-hold').style.display = 'block';
-	document.querySelector('.btn-roll').style.display = 'block';
 	document.getElementById('score-0').textContent = '0';
 	document.getElementById('current-0').textContent = '0';
 	document.getElementById('score-1').textContent = '0';
 	document.getElementById('current-1').textContent = '0';
+	//make Player 1 active and Player 2 not active.
+	document.querySelector('.player-0-panel').classList.add('active');
+	document.querySelector('.player-1-panel').classList.remove('active');
+	//remove winner class from both players.
+	document.querySelector('.player-0-panel').classList.remove('winner');
+	document.querySelector('.player-1-panel').classList.remove('winner');
+	//show both hold and roll-dice buttons.
+	document.querySelector('.btn-hold').style.display = 'block';
+	document.querySelector('.btn-roll').style.display = 'block';
+	//reset the names of both players.
 	document.getElementById('name-0').textContent = 'Player 1';
 	document.getElementById('name-1').textContent = 'Player 2';
-	//make player-0 active
-	//show dice-roll and hold buttons.
-	
-})
+}
 
 function toggleActivePlayer() {
 	//document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
