@@ -34,7 +34,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 				toggleActivePlayer();
 			} else {
 				prevDice = dice;
-				roundScore += dice;				
+				roundScore += dice;
 			}
 			document.getElementById('current-' + activePlayer).textContent = roundScore;
 		} else {
