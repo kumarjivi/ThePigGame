@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer,
+var scores, roundScore, activePlayer, gameInProgress;
 scores = [0,0];
 roundScore = 0;
 activePlayer = 0;
@@ -19,30 +19,34 @@ activePlayer = 0;
 //document.querySelector('#score-' + activePlayer).textContent = dice;
 document.querySelector('.dice').style.display = 'none';
 //reset the current score and round score as 0.
-document.getElementById('score-0').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+//document.getElementById('score-0').textContent = '0';
+//document.getElementById('current-0').textContent = '0';
+//document.getElementById('score-1').textContent = '0';
+//document.getElementById('current-1').textContent = '0';
+init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
-	//generate a random number.
-	var dice = Math.ceil(Math.random() * 6);
-	//display the result.
-	var diceButton = document.querySelector('.dice');
-	diceButton.style.display = 'block';
-	diceButton.src = 'dice-' + dice + '.png';
-	//update the result if rolled number is not 1.
-	if(dice > 1) {
-		roundScore += dice;
-		document.getElementById('current-' + activePlayer).textContent = roundScore;
-	} else {
-		roundScore = 0;
-		document.getElementById('current-' + activePlayer).textContent = roundScore;
-		//update active player and inactive player.
-		toggleActivePlayer();
-		//hide the dice.
-		//document.querySelector('.dice').style.display = 'none';
+	if(gameInProgress) {
+		//generate a random number.
+		var dice = Math.ceil(Math.random() * 6);
+		//display the result.
+		var diceButton = document.querySelector('.dice');
+		diceButton.style.display = 'block';
+		diceButton.src = 'dice-' + dice + '.png';
+		//update the result if rolled number is not 1.
+		if(dice > 1) {
+			roundScore += dice;
+			document.getElementById('current-' + activePlayer).textContent = roundScore;
+		} else {
+			roundScore = 0;
+			document.getElementById('current-' + activePlayer).textContent = roundScore;
+			//update active player and inactive player.
+			toggleActivePlayer();
+			//hide the dice.
+			//document.querySelector('.dice').style.display = 'none';
+		}
 	}
+	
 	
 });
 
@@ -51,18 +55,21 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	document.querySelector('.dice').style.display = 'none';
 	//update current score of active player.
 	updateScore(activePlayer);
-	if(scores[activePlayer] >= 50) {
-		document.getElementById('name-'+activePlayer).textContent = "Winner!!!";
-		document.querySelector('.player-'+activePlayer +'-panel').classList.remove('active');
-		document.querySelector('.player-'+activePlayer +'-panel').classList.add('winner');
-		//hide the roll-dice and the hold button.
-		document.querySelector('.btn-roll').style.display = 'none';
-		document.querySelector('.btn-hold').style.display = 'none';
-		
-	} else {
-		
-		toggleActivePlayer();
+	if(gameInProgress) {
+		if(scores[activePlayer] >= 50) {
+			document.getElementById('name-'+activePlayer).textContent = "Winner!!!";
+			document.querySelector('.player-'+activePlayer +'-panel').classList.remove('active');
+			document.querySelector('.player-'+activePlayer +'-panel').classList.add('winner');
+			//hide the roll-dice and the hold button.
+			//document.querySelector('.btn-roll').style.display = 'none';
+			//document.querySelector('.btn-hold').style.display = 'none';
+			gameInProgress = false;
+		} else {
+			
+			toggleActivePlayer();
+		}		
 	}
+	
 	
 	
 });
@@ -79,8 +86,9 @@ function init() {
 	document.getElementById('score-1').textContent = '0';
 	document.getElementById('current-1').textContent = '0';
 	//make Player 1 active and Player 2 not active.
-	document.querySelector('.player-0-panel').classList.add('active');
+	document.querySelector('.player-0-panel').classList.remove('active');
 	document.querySelector('.player-1-panel').classList.remove('active');
+	document.querySelector('.player-0-panel').classList.add('active');
 	//remove winner class from both players.
 	document.querySelector('.player-0-panel').classList.remove('winner');
 	document.querySelector('.player-1-panel').classList.remove('winner');
@@ -90,6 +98,9 @@ function init() {
 	//reset the names of both players.
 	document.getElementById('name-0').textContent = 'Player 1';
 	document.getElementById('name-1').textContent = 'Player 2';
+	//hide the dice
+	document.querySelector('.dice').style.display = 'none';
+	gameInProgress = true;
 }
 
 function toggleActivePlayer() {
