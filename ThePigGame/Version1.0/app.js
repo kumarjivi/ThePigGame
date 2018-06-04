@@ -25,12 +25,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 			roundScore += dice;
 			document.getElementById('current-' + activePlayer).textContent = roundScore;
 		} else {
-			roundScore = 0;
-			document.getElementById('current-' + activePlayer).textContent = roundScore;
-			//update active player and inactive player.
 			toggleActivePlayer();
-			//hide the dice.
-			//document.querySelector('.dice').style.display = 'none';
 		}
 	}
 	
@@ -85,6 +80,8 @@ function init() {
 }
 
 function toggleActivePlayer() {
+	roundScore = 0;
+	document.getElementById('current-' + activePlayer).textContent = roundScore;
 	document.querySelector('.player-0-panel').classList.toggle('active');
 	document.querySelector('.player-1-panel').classList.toggle('active');
 	activePlayer = (activePlayer + 1)%2;
