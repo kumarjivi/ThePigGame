@@ -10,19 +10,7 @@ GAME RULES:
 */
 
 var scores, roundScore, activePlayer, gameInProgress;
-scores = [0,0];
-roundScore = 0;
-activePlayer = 0;
 
-
-
-//document.querySelector('#score-' + activePlayer).textContent = dice;
-document.querySelector('.dice').style.display = 'none';
-//reset the current score and round score as 0.
-//document.getElementById('score-0').textContent = '0';
-//document.getElementById('current-0').textContent = '0';
-//document.getElementById('score-1').textContent = '0';
-//document.getElementById('current-1').textContent = '0';
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
@@ -60,27 +48,21 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 			document.getElementById('name-'+activePlayer).textContent = "Winner!!!";
 			document.querySelector('.player-'+activePlayer +'-panel').classList.remove('active');
 			document.querySelector('.player-'+activePlayer +'-panel').classList.add('winner');
-			//hide the roll-dice and the hold button.
-			//document.querySelector('.btn-roll').style.display = 'none';
-			//document.querySelector('.btn-hold').style.display = 'none';
 			gameInProgress = false;
 		} else {
 			
 			toggleActivePlayer();
 		}		
 	}
-	
-	
-	
 });
 
 document.querySelector('.btn-new').addEventListener('click', init);
 
 function init() {
 	//reset all scores.
-	scores[0] = 0;
-	scores[1] = 0;
+	scores = [0,0];
 	roundScore = 0;
+	activePlayer = 0;
 	document.getElementById('score-0').textContent = '0';
 	document.getElementById('current-0').textContent = '0';
 	document.getElementById('score-1').textContent = '0';
@@ -104,10 +86,6 @@ function init() {
 }
 
 function toggleActivePlayer() {
-	//document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
-	//activePlayer = (activePlayer + 1)%2;
-	//document.querySelector('.player-' + activePlayer + '-panel').classList.add('active');
-	//another way to do this.
 	document.querySelector('.player-0-panel').classList.toggle('active');
 	document.querySelector('.player-1-panel').classList.toggle('active');
 	activePlayer = (activePlayer + 1)%2;
